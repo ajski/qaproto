@@ -1,9 +1,10 @@
 import pytest
+
 import markers
 import settings
-
 from api import osf_api
 from pages import user
+
 
 @pytest.fixture()
 def quickfile(session):

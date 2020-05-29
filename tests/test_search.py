@@ -4,6 +4,7 @@ from selenium.webdriver.common.keys import Keys
 import markers
 from pages.search import SearchPage
 
+
 @pytest.fixture()
 def search_page(driver):
     search_page = SearchPage(driver)

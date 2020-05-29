@@ -1,5 +1,6 @@
-import settings
 from selenium import webdriver
+
+import settings
 
 
 def launch_driver(driver_name=settings.DRIVER, desired_capabilities=None):

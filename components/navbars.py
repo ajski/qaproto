@@ -1,8 +1,7 @@
-import settings
-
-from base.locators import BaseElement, Locator
-
 from selenium.webdriver.common.by import By
+
+import settings
+from base.locators import BaseElement, Locator
 
 
 class Navbar(BaseElement):

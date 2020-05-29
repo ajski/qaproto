@@ -1,7 +1,9 @@
 import pytest
+
 import markers
 import settings
-from pages.institutions import InstitutionsLandingPage, InstitutionBrandedPage
+from pages.institutions import InstitutionBrandedPage, InstitutionsLandingPage
+
 
 class TestInstitutionsPage:
 

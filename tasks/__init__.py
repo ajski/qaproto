@@ -5,12 +5,12 @@
 commands, run ``$ invoke --list``.
 """
 
-import os
-import sys
 import glob
 import logging
-from invoke import task
+import os
+import sys
 
+from invoke import task
 
 logging.getLogger('invoke').setLevel(logging.CRITICAL)
 

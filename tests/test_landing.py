@@ -1,8 +1,9 @@
 import pytest
-import markers
 
-from tests.generic import CreateUserMixin
+import markers
 from pages.landing import LandingPage, RegisteredReportsLandingPage
+from tests.generic import CreateUserMixin
+
 
 @pytest.fixture()
 def landing_page(driver):

@@ -1,10 +1,9 @@
-import settings
-
 from selenium.webdriver.common.by import By
 
-from base.locators import Locator, ComponentLocator
-from pages.base import OSFBasePage
+import settings
+from base.locators import ComponentLocator, Locator
 from components.navbars import MeetingsNavbar
+from pages.base import OSFBasePage
 
 
 class BaseMeetingsPage(OSFBasePage):

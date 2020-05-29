@@ -1,19 +1,18 @@
 import pytest
+
 import markers
-
-from pages.login import LoginPage, login
 from pages.cos import COSDonatePage
-from pages.search import SearchPage
-from pages.landing import LandingPage
-from pages.support import SupportPage
-from pages.meetings import MeetingsPage
-from pages.register import RegisterPage
-from pages.project import MyProjectsPage
 from pages.dashboard import DashboardPage
-from pages.registries import RegistriesLandingPage
-from pages.user import UserProfilePage, ProfileInformationPage
+from pages.landing import LandingPage
+from pages.login import LoginPage, login
+from pages.meetings import MeetingsPage
 from pages.preprints import PreprintLandingPage, PreprintSubmitPage
-
+from pages.project import MyProjectsPage
+from pages.register import RegisterPage
+from pages.registries import RegistriesLandingPage
+from pages.search import SearchPage
+from pages.support import SupportPage
+from pages.user import ProfileInformationPage, UserProfilePage
 
 # TODO: Test Navbar from all services including reviews and such - they might not have the same navbar always
 

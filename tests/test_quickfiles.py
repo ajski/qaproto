@@ -1,8 +1,8 @@
 import pytest
+
 import markers
 from api import osf_api
-
-from pages.quickfiles import QuickfilesPage, QuickfileDetailPage
+from pages.quickfiles import QuickfileDetailPage, QuickfilesPage
 
 
 @pytest.fixture()

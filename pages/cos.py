@@ -1,8 +1,8 @@
-import settings
+from selenium.webdriver.common.by import By
 
+import settings
 from base.locators import Locator
 from pages.base import BasePage
-from selenium.webdriver.common.by import By
 
 
 class COSDonatePage(BasePage):

@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
-from base.locators import Locator, BaseElement
+
+from base.locators import BaseElement, Locator
 
 
 class SettingsSideNavigation(BaseElement):

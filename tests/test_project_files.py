@@ -1,15 +1,17 @@
-import pytest
 import time
-import markers
-import settings
 
-from api import osf_api
-from pages.project import FilesPage
-from selenium.webdriver.common.keys import Keys
+import pytest
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
+import markers
+import settings
+from api import osf_api
+from pages.project import FilesPage
+
 
 '''
 *** NOTE ***

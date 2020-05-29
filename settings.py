@@ -1,4 +1,5 @@
 from environs import Env
+
 env = Env()
 env.read_env()  # Read .env into os.environ, if it exists
 

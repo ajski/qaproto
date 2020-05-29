@@ -1,14 +1,14 @@
-import settings
-
 import urllib.parse
 from time import sleep
+
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 
-from components.navbars import HomeNavbar
-from base.locators import BaseElement, ComponentLocator
+import settings
 from base.exceptions import HttpError, PageException
+from base.locators import BaseElement, ComponentLocator
+from components.navbars import HomeNavbar
 
 
 class BasePage(BaseElement):

@@ -1,11 +1,10 @@
-import settings
-
-from api import osf_api
 from selenium.webdriver.common.by import By
 
-from base.locators import Locator, GroupLocator, ComponentLocator
-from pages.base import GuidBasePage, OSFBasePage
+import settings
+from api import osf_api
+from base.locators import ComponentLocator, GroupLocator, Locator
 from components.user import SettingsSideNavigation
+from pages.base import GuidBasePage, OSFBasePage
 
 
 class UserProfilePage(GuidBasePage):

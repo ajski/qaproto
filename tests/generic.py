@@ -1,6 +1,8 @@
 import pytest
+
 import markers
 import settings
+
 
 class CreateUserMixin():
     """Mixin used to inject user creation test

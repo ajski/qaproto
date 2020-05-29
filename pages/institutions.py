@@ -1,10 +1,10 @@
-import settings
-
 from selenium.webdriver.common.by import By
 
-from base.locators import Locator, ComponentLocator, GroupLocator
-from pages.base import OSFBasePage
+import settings
+from base.locators import ComponentLocator, GroupLocator, Locator
 from components.navbars import EmberNavbar
+from pages.base import OSFBasePage
+
 
 class InstitutionsLandingPage(OSFBasePage):
     url = settings.OSF_HOME + '/institutions/'

@@ -1,4 +1,6 @@
+black==19.10b0
 invoke==0.15.0
+isort==4.3.21
 selenium==3.6.0
 pytest==3.5.0
 flake8==2.4.0

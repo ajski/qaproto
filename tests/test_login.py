@@ -1,6 +1,5 @@
 import markers
-
-from pages.login import LoginPage, InstitutionalLoginPage, OrcidLoginPage
+from pages.login import InstitutionalLoginPage, LoginPage, OrcidLoginPage
 
 
 class TestLoginWorkflow:

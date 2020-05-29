@@ -1,12 +1,10 @@
-import settings
-
-from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 
-
-from base.locators import Locator, ComponentLocator, GroupLocator
+import settings
+from base.locators import ComponentLocator, GroupLocator, Locator
 from components.navbars import RegistriesNavbar
-from pages.base import OSFBasePage, GuidBasePage
+from pages.base import GuidBasePage, OSFBasePage
 
 
 class BaseRegistriesPage(OSFBasePage):

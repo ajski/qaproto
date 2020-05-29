@@ -1,10 +1,9 @@
 import pytest
 from faker import Faker
+from pythosf import client
 
 import settings
-
 from api import osf_api
-from pythosf import client
 from pages.login import logout, safe_login
 from pages.project import ProjectPage
 from utils import launch_driver

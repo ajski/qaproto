@@ -1,13 +1,14 @@
 import pytest
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
 import markers
 import settings
-
 from api import osf_api
-from pages.project import ProjectPage, RequestAccessPage, AnalyticsPage, ForksPage
 from pages.login import LoginPage, login, logout
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from pages.project import (AnalyticsPage, ForksPage, ProjectPage,
+                           RequestAccessPage)
 
 
 @pytest.fixture()

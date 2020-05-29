@@ -1,8 +1,8 @@
 import pytest
-import markers
 
+import markers
+from pages.meetings import MeetingDetailPage, MeetingsPage
 from pages.project import ProjectPage
-from pages.meetings import MeetingsPage, MeetingDetailPage
 
 
 @pytest.fixture

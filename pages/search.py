@@ -1,9 +1,8 @@
-import settings
-
 from selenium.webdriver.common.by import By
 
+import settings
+from base.locators import GroupLocator, Locator
 from pages.base import OSFBasePage
-from base.locators import Locator, GroupLocator
 
 
 class SearchPage(OSFBasePage):

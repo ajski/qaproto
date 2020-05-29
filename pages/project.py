@@ -1,17 +1,12 @@
-import settings
-
 from selenium.webdriver.common.by import By
 
+import settings
 from api import osf_api
+from base.locators import ComponentLocator, GroupLocator, Locator
+from components.dashboard import (CreateCollectionModal, CreateProjectModal,
+                                  DeleteCollectionModal, ProjectCreatedModal)
 from components.project import FileWidget, LogWidget
-from components.dashboard import (
-    CreateProjectModal,
-    CreateCollectionModal,
-    DeleteCollectionModal,
-    ProjectCreatedModal,
-)
 from pages.base import GuidBasePage, OSFBasePage
-from base.locators import Locator, ComponentLocator, GroupLocator
 
 
 class ProjectPage(GuidBasePage):

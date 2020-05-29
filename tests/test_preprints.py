@@ -1,19 +1,15 @@
-import pytest
-import markers
-import settings
 import logging
 import re
 
-from api import osf_api
-from selenium.webdriver.support.ui import WebDriverWait
+import pytest
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
-from pages.preprints import (
-    PreprintLandingPage,
-    PreprintSubmitPage,
-    PreprintDetailPage,
-    PreprintDiscoverPage,
-)
+import markers
+import settings
+from api import osf_api
+from pages.preprints import (PreprintDetailPage, PreprintDiscoverPage,
+                             PreprintLandingPage, PreprintSubmitPage)
 
 logger = logging.getLogger(__name__)
 

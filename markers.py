@@ -1,4 +1,5 @@
 import pytest
+
 import settings
 
 smoke_test = pytest.mark.smoke_test

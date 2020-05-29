@@ -1,10 +1,11 @@
-import settings
 import json
-import os
 import logging
-import requests
+import os
 
+import requests
 from pythosf import client
+
+import settings
 
 logger = logging.getLogger(__name__)
 

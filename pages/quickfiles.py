@@ -1,11 +1,10 @@
-import settings
-
-from api import osf_api
 from selenium.webdriver.common.by import By
 
+import settings
+from api import osf_api
+from base.locators import ComponentLocator, GroupLocator, Locator
 from components.navbars import EmberNavbar
-from pages.base import OSFBasePage, GuidBasePage
-from base.locators import Locator, ComponentLocator, GroupLocator
+from pages.base import GuidBasePage, OSFBasePage
 
 
 class BaseQuickfilesPage(OSFBasePage):

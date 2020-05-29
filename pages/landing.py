@@ -1,11 +1,10 @@
-import settings
-
 from selenium.webdriver.common.by import By
 
-from pages.base import OSFBasePage
+import settings
+from base.locators import ComponentLocator, Locator
 from components.generic import SignUpForm
 from components.navbars import EmberNavbar
-from base.locators import Locator, ComponentLocator
+from pages.base import OSFBasePage
 
 
 class LandingPage(OSFBasePage):

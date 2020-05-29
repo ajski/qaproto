@@ -1,13 +1,11 @@
-import settings
-
-from base import expected_conditions as ec
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import (NoSuchElementException,
+                                        StaleElementReferenceException,
+                                        TimeoutException)
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import (
-    StaleElementReferenceException,
-    TimeoutException,
-    NoSuchElementException,
-)
+from selenium.webdriver.support.ui import WebDriverWait
+
+import settings
+from base import expected_conditions as ec
 
 
 class WebElementWrapper:

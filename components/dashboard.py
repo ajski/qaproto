@@ -1,8 +1,9 @@
-import settings
 from time import sleep
 
 from selenium.webdriver.common.by import By
-from base.locators import Locator, GroupLocator, BaseElement
+
+import settings
+from base.locators import BaseElement, GroupLocator, Locator
 
 
 class EmberCreateProjectModal(BaseElement):

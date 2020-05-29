@@ -2,7 +2,7 @@ from selenium.webdriver.common.by import By
 
 import settings
 from base.exceptions import LoginError
-from base.locators import Locator, GroupLocator
+from base.locators import GroupLocator, Locator
 from pages.base import BasePage, OSFBasePage
 
 

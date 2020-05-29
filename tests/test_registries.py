@@ -1,11 +1,8 @@
 import pytest
-import markers
 
-from pages.registries import (
-    RegistriesLandingPage,
-    RegistriesDiscoverPage,
-    RegistrationDetailPage,
-)
+import markers
+from pages.registries import (RegistrationDetailPage, RegistriesDiscoverPage,
+                              RegistriesLandingPage)
 
 
 @pytest.fixture

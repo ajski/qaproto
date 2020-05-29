@@ -17,11 +17,12 @@ def my_projects_page(driver):
     return my_projects_page
 
 
-@pytest.mark.skip(reason='Skip this test until bug ticket ENG-1737 is resolved')
-@pytest.mark.usefixtures('must_be_logged_in')
+@pytest.mark.skip(reason="Skip this test until bug ticket ENG-1737 is resolved")
+@pytest.mark.usefixtures("must_be_logged_in")
 class TestMyProjectsPage:
     """ Custom collections must implement a PRE-delete setup to start in a clean state.
     """
+
     @markers.dont_run_on_prod
     @markers.core_functionality
     def test_create_new_project(self, driver, session, my_projects_page, fake):
@@ -34,18 +35,24 @@ class TestMyProjectsPage:
         my_projects_page.project_created_modal.keep_working_here_button.click()
 
         # Wait until modal is gone
-        WebDriverWait(driver, 5).until(EC.invisibility_of_element_located((By.CSS_SELECTOR, 'button[data-dismiss="modal"]')))
+        WebDriverWait(driver, 5).until(
+            EC.invisibility_of_element_located(
+                (By.CSS_SELECTOR, 'button[data-dismiss="modal"]')
+            )
+        )
         my_projects_page.goto()
-        guid = my_projects_page.first_project_hyperlink.get_attribute('data-nodeid')
+        guid = my_projects_page.first_project_hyperlink.get_attribute("data-nodeid")
         my_projects_page.first_project_hyperlink.click()
 
         # Test & Cleanup
         project_page = ProjectPage(driver, verify=True)
-        assert project_page.title.text == title, 'Project title incorrect.'
+        assert project_page.title.text == title, "Project title incorrect."
         osf_api.delete_project(session, guid, None)
 
-    def test_create_custom_collection(self, driver, session, default_project, my_projects_page, fake):
-        current_browser = driver.desired_capabilities.get('browserName')
+    def test_create_custom_collection(
+        self, driver, session, default_project, my_projects_page, fake
+    ):
+        current_browser = driver.desired_capabilities.get("browserName")
 
         osf_api.delete_custom_collections(session)
 
@@ -57,7 +64,11 @@ class TestMyProjectsPage:
         my_projects_page.create_collection_modal.add_button.click()
 
         # Wait until modal closes, then test for presence
-        WebDriverWait(driver, 10).until(EC.invisibility_of_element_located((By.CSS_SELECTOR, '#addColl .btn-success')))
+        WebDriverWait(driver, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CSS_SELECTOR, "#addColl .btn-success")
+            )
+        )
         my_projects_page.reload()
         assert name in my_projects_page.first_custom_collection.text
 
@@ -69,7 +80,7 @@ class TestMyProjectsPage:
         action_chains = ActionChains(driver)
         # drag_project is a wrapper - use .element to use the WebElement inside it
         # drop_collection is a wrapper - use .element to use the WebElement inside it
-        if 'firefox' in current_browser:
+        if "firefox" in current_browser:
             action_chains.drag_and_drop(drag_project.element, drop_collection.element)
             action_chains.perform()
         else:
@@ -84,8 +95,12 @@ class TestMyProjectsPage:
             action_chains.release().perform()
 
         # Wait for new collection to have '(1)' in the name
-        WebDriverWait(driver, 5).until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, 'li[data-index="4"] span'), '(1)'))
-        assert '1' in my_projects_page.first_custom_collection.text
+        WebDriverWait(driver, 5).until(
+            EC.text_to_be_present_in_element(
+                (By.CSS_SELECTOR, 'li[data-index="4"] span'), "(1)"
+            )
+        )
+        assert "1" in my_projects_page.first_custom_collection.text
 
     def test_delete_custom_collection(self, session, driver, my_projects_page):
         # API Setup
@@ -101,5 +116,9 @@ class TestMyProjectsPage:
         my_projects_page.delete_collection_modal.delete_button.click()
 
         # Wait for danger modal to close
-        WebDriverWait(driver, 5).until(EC.invisibility_of_element_located((By.CSS_SELECTOR, '#removeColl .btn-danger')))
+        WebDriverWait(driver, 5).until(
+            EC.invisibility_of_element_located(
+                (By.CSS_SELECTOR, "#removeColl .btn-danger")
+            )
+        )
         assert not my_projects_page.first_custom_collection.present()

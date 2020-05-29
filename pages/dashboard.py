@@ -10,7 +10,6 @@ from base.locators import Locator, GroupLocator, ComponentLocator
 
 
 class BaseDashboardPage(OSFBasePage):
-
     def get_institutions(self):
         page_institutions = self.institution_carousel_logos
         while self.institutions_carousel_left_arrow.present():
@@ -24,18 +23,32 @@ class BaseDashboardPage(OSFBasePage):
 
 
 class DashboardPage(BaseDashboardPage):
-    url = settings.OSF_HOME + '/dashboard/'
+    url = settings.OSF_HOME + "/dashboard/"
 
-    identity = Locator(By.CSS_SELECTOR, '._institutions-panel_1b28t4', settings.LONG_TIMEOUT)
-    create_project_button = Locator(By.CSS_SELECTOR, '[data-test-create-project-modal-button]', settings.LONG_TIMEOUT)
+    identity = Locator(
+        By.CSS_SELECTOR, "._institutions-panel_1b28t4", settings.LONG_TIMEOUT
+    )
+    create_project_button = Locator(
+        By.CSS_SELECTOR,
+        "[data-test-create-project-modal-button]",
+        settings.LONG_TIMEOUT,
+    )
     view_meetings_button = Locator(By.XPATH, '//a[text()="View meetings"]')
     view_preprints_button = Locator(By.XPATH, '//a[text()="View preprints"]')
-    first_popular_project_entry = Locator(By.CSS_SELECTOR, '._NoteworthyProject__item_ko80g1', settings.LONG_TIMEOUT)
-    institutions_carousel_left_arrow = Locator(By.CSS_SELECTOR, '._InstitutionCarousel__control_16pdz4.carousel-control._left_16pdz4')
-    institutions_carousel_right_arrow = Locator(By.CSS_SELECTOR, '._InstitutionCarousel__control_16pdz4.carousel-control._right_16pdz4')
+    first_popular_project_entry = Locator(
+        By.CSS_SELECTOR, "._NoteworthyProject__item_ko80g1", settings.LONG_TIMEOUT
+    )
+    institutions_carousel_left_arrow = Locator(
+        By.CSS_SELECTOR,
+        "._InstitutionCarousel__control_16pdz4.carousel-control._left_16pdz4",
+    )
+    institutions_carousel_right_arrow = Locator(
+        By.CSS_SELECTOR,
+        "._InstitutionCarousel__control_16pdz4.carousel-control._right_16pdz4",
+    )
 
     # Group Locators
-    institution_carousel_logos = GroupLocator(By.CSS_SELECTOR, '.carousel-inner img')
+    institution_carousel_logos = GroupLocator(By.CSS_SELECTOR, ".carousel-inner img")
 
     # Components
     navbar = ComponentLocator(EmberNavbar)
@@ -45,20 +58,40 @@ class DashboardPage(BaseDashboardPage):
 
 
 class LegacyDashboardPage(BaseDashboardPage):
-    waffle_override = {'ember_home_page': DashboardPage}
+    waffle_override = {"ember_home_page": DashboardPage}
 
-    identity = Locator(By.CSS_SELECTOR, '#osfHome > div.prereg-banner', settings.LONG_TIMEOUT)
-    create_project_button = Locator(By.CSS_SELECTOR, 'button.btn-success:nth-child(1)', settings.LONG_TIMEOUT)
+    identity = Locator(
+        By.CSS_SELECTOR, "#osfHome > div.prereg-banner", settings.LONG_TIMEOUT
+    )
+    create_project_button = Locator(
+        By.CSS_SELECTOR, "button.btn-success:nth-child(1)", settings.LONG_TIMEOUT
+    )
     view_meetings_button = Locator(By.XPATH, '//a[text()="View meetings"]')
     view_preprints_button = Locator(By.XPATH, '//a[text()="View preprints"]')
-    new_and_noteworthy = Locator(By.CSS_SELECTOR, '#osfHome > div.newAndNoteworthy > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(1) > div > h4', settings.LONG_TIMEOUT)
-    first_popular_project_entry = Locator(By.CLASS_NAME, 'public-projects-item', settings.LONG_TIMEOUT)
-    popular_projects = Locator(By.CSS_SELECTOR, '#osfHome > div.newAndNoteworthy > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2) > div > h4', settings.LONG_TIMEOUT)
-    institutions_carousel_left_arrow = Locator(By.CSS_SELECTOR, '.left.carousel-control')
-    institutions_carousel_right_arrow = Locator(By.CSS_SELECTOR, '.right.carousel-control')
+    new_and_noteworthy = Locator(
+        By.CSS_SELECTOR,
+        "#osfHome > div.newAndNoteworthy > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(1) > div > h4",
+        settings.LONG_TIMEOUT,
+    )
+    first_popular_project_entry = Locator(
+        By.CLASS_NAME, "public-projects-item", settings.LONG_TIMEOUT
+    )
+    popular_projects = Locator(
+        By.CSS_SELECTOR,
+        "#osfHome > div.newAndNoteworthy > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2) > div > h4",
+        settings.LONG_TIMEOUT,
+    )
+    institutions_carousel_left_arrow = Locator(
+        By.CSS_SELECTOR, ".left.carousel-control"
+    )
+    institutions_carousel_right_arrow = Locator(
+        By.CSS_SELECTOR, ".right.carousel-control"
+    )
 
     # Group Locators
-    institution_carousel_logos = GroupLocator(By.CSS_SELECTOR, '.carousel-inner .img-circle')
+    institution_carousel_logos = GroupLocator(
+        By.CSS_SELECTOR, ".carousel-inner .img-circle"
+    )
 
     # Components
     create_project_modal = ComponentLocator(components.CreateProjectModal)

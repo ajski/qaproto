@@ -33,7 +33,9 @@ class BasePage(BaseElement):
 
         if expect_redirect_to:
             if self.url not in self.driver.current_url:
-                raise PageException('Unexpected url structure: `{}`'.format(self.driver.current_url))
+                raise PageException(
+                    "Unexpected url structure: `{}`".format(self.driver.current_url)
+                )
             expect_redirect_to(self.driver, verify=True)
         else:
             self.check_page()
@@ -42,7 +44,9 @@ class BasePage(BaseElement):
         if not self.verify():
             # handle any specific kind of error before go to page exception
             self.error_handling()
-            raise PageException('Unexpected page structure: `{}`'.format(self.driver.current_url))
+            raise PageException(
+                "Unexpected page structure: `{}`".format(self.driver.current_url)
+            )
 
     def verify(self):
         """Verify that you are on the expected page by confirming the page's `identity`
@@ -57,9 +61,9 @@ class BasePage(BaseElement):
         self.driver.refresh()
 
     def scroll_into_view(self, element):
-        self.driver.execute_script('arguments[0].scrollIntoView(false);', element)
+        self.driver.execute_script("arguments[0].scrollIntoView(false);", element)
         # Account for navbar
-        self.driver.execute_script('window.scrollBy(0, 55)')
+        self.driver.execute_script("window.scrollBy(0, 55)")
 
     def drag_and_drop(self, source_element, dest_element):
         source_element.click()
@@ -72,6 +76,7 @@ class OSFBasePage(BasePage):
     """
     Note: All pages must have a unique identity or overwrite `verify`
     """
+
     url = settings.OSF_HOME
     navbar = ComponentLocator(HomeNavbar)
 
@@ -81,7 +86,7 @@ class OSFBasePage(BasePage):
     @property
     def error_heading(self):
         try:
-            error_head = self.driver.find_element(By.CSS_SELECTOR, 'h2#error')
+            error_head = self.driver.find_element(By.CSS_SELECTOR, "h2#error")
         except NoSuchElementException:
             return None
         else:
@@ -90,7 +95,7 @@ class OSFBasePage(BasePage):
     def error_handling(self):
         # If we've got an error message here from osf, grab it
         if self.error_heading:
-            raise HttpError(self.error_heading.get_attribute('data-http-status-code'))
+            raise HttpError(self.error_heading.get_attribute("data-http-status-code"))
 
     def is_logged_in(self):
         return self.navbar.is_logged_in()
@@ -100,17 +105,17 @@ class OSFBasePage(BasePage):
 
 
 class GuidBasePage(OSFBasePage):
-    base_url = urllib.parse.urljoin(settings.OSF_HOME, '{guid}')
-    guid = ''
+    base_url = urllib.parse.urljoin(settings.OSF_HOME, "{guid}")
+    guid = ""
 
-    def __init__(self, driver, verify=False, guid='', domain=settings.OSF_HOME):
+    def __init__(self, driver, verify=False, guid="", domain=settings.OSF_HOME):
         super().__init__(driver, verify)
         # self.domain = domain
         self.guid = guid
 
     @property
     def url(self):
-        if '{guid}' in self.base_url:
+        if "{guid}" in self.base_url:
             return self.base_url.format(guid=self.guid)
         else:
-            raise ValueError('No space in base_url for GUID specified.')
+            raise ValueError("No space in base_url for GUID specified.")

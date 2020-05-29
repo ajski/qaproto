@@ -2,8 +2,8 @@ import markers
 
 from pages.login import LoginPage, InstitutionalLoginPage, OrcidLoginPage
 
-class TestLoginWorkflow:
 
+class TestLoginWorkflow:
     @markers.core_functionality
     def test_institutional_login(self, driver):
         """Check that you arrive on the institutional login page and the institution dropdown is populated.

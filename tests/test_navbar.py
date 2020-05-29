@@ -17,9 +17,11 @@ from pages.preprints import PreprintLandingPage, PreprintSubmitPage
 
 # TODO: Test Navbar from all services including reviews and such - they might not have the same navbar always
 
+
 class NavbarTestLoggedOutMixin:
     """Mixin used to inject generic tests
     """
+
     @pytest.fixture()
     def page(self, driver):
         raise NotImplementedError()
@@ -56,6 +58,7 @@ class NavbarTestLoggedOutMixin:
 class NavbarTestLoggedInMixin:
     """Mixin used to inject generic tests
     """
+
     @pytest.fixture()
     def page(self, driver):
         raise NotImplementedError()
@@ -85,12 +88,11 @@ class NavbarTestLoggedInMixin:
         page.navbar.user_dropdown.click()
         page.navbar.logout_link.click()
         LandingPage(driver, verify=True)
-        assert 'goodbye' in driver.current_url
+        assert "goodbye" in driver.current_url
         login(driver)
 
 
 class TestOSFHomeNavbar(NavbarTestLoggedOutMixin):
-
     @pytest.fixture()
     def page(self, driver):
         page = LandingPage(driver)
@@ -138,6 +140,7 @@ class TestOSFHomeNavbarLoggedIn(NavbarTestLoggedInMixin):
         page.navbar.my_projects_link.click()
         assert MyProjectsPage(driver, verify=True)
 
+
 # TODO: Complete this test after ENG-1103 is resolved
 # class TestPreprintsNavbar(NavbarTestLoggedOutMixin):
 #
@@ -147,29 +150,28 @@ class TestOSFHomeNavbarLoggedIn(NavbarTestLoggedInMixin):
 #         page.goto()
 #         return page
 
-    # todo: add id to those html tags in ember osf to make the find_element possible
-    # def test_search_link(self):
-    #     page.navbar.search_link.click()
-    #     search_url = settings.OSF_HOME + '/search/'
-    #     assert driver.current_url == search_url
-    #
-    # def test_support_link(self):
-    #     page.navbar.support_link.click()
-    #     support_url = settings.OSF_HOME + '/support/'
-    #     assert driver.current_url == support_url
-    #
-    # def test_donate_link(self):
-    #     page.navbar.donate_link.click()
-    #     assert 'cos.io/donate-to-cos' in driver.current_url
-    #
-    # def test_sign_in_button(self):
-    #     page.navbar.sign_in_button.click()
-    #     assert 'login' in driver.current_url
+# todo: add id to those html tags in ember osf to make the find_element possible
+# def test_search_link(self):
+#     page.navbar.search_link.click()
+#     search_url = settings.OSF_HOME + '/search/'
+#     assert driver.current_url == search_url
+#
+# def test_support_link(self):
+#     page.navbar.support_link.click()
+#     support_url = settings.OSF_HOME + '/support/'
+#     assert driver.current_url == support_url
+#
+# def test_donate_link(self):
+#     page.navbar.donate_link.click()
+#     assert 'cos.io/donate-to-cos' in driver.current_url
+#
+# def test_sign_in_button(self):
+#     page.navbar.sign_in_button.click()
+#     assert 'login' in driver.current_url
 
 
-@pytest.mark.usefixtures('must_be_logged_in')
+@pytest.mark.usefixtures("must_be_logged_in")
 class TestPreprintsNavbarLoggedIn(NavbarTestLoggedInMixin):
-
     @pytest.fixture()
     def page(self, driver):
         page = PreprintLandingPage(driver)
@@ -182,7 +184,6 @@ class TestPreprintsNavbarLoggedIn(NavbarTestLoggedInMixin):
 
 
 class TestMeetingsNavbar(NavbarTestLoggedOutMixin):
-
     @pytest.fixture()
     def page(self, driver):
         page = MeetingsPage(driver)
@@ -191,7 +192,7 @@ class TestMeetingsNavbar(NavbarTestLoggedOutMixin):
 
     def test_support_link(self, page, driver):
         page.navbar.support_link.click()
-        assert '360001550933' in driver.current_url or 'support' in driver.current_url
+        assert "360001550933" in driver.current_url or "support" in driver.current_url
 
         # For future use
         # support_url = 'https://openscience.zendesk.com/hc/en-us/categories/360001550933'
@@ -203,12 +204,11 @@ class TestMeetingsNavbar(NavbarTestLoggedOutMixin):
 
     def test_sign_in_button(self, page, driver):
         page.navbar.sign_in_button.click()
-        assert 'login' in driver.current_url
+        assert "login" in driver.current_url
 
 
-@pytest.mark.usefixtures('must_be_logged_in')
+@pytest.mark.usefixtures("must_be_logged_in")
 class TestMeetingsNavbarLoggedIn(NavbarTestLoggedInMixin):
-
     @pytest.fixture()
     def page(self, driver):
         page = MeetingsPage(driver)
@@ -217,7 +217,6 @@ class TestMeetingsNavbarLoggedIn(NavbarTestLoggedInMixin):
 
 
 class TestRegistriesNavbar(NavbarTestLoggedOutMixin):
-
     @pytest.fixture()
     def page(self, driver):
         page = RegistriesLandingPage(driver)
@@ -244,9 +243,8 @@ class TestRegistriesNavbar(NavbarTestLoggedOutMixin):
     #     assert 'login' in driver.current_url
 
 
-@pytest.mark.usefixtures('must_be_logged_in')
+@pytest.mark.usefixtures("must_be_logged_in")
 class TestRegistriesNavbarLoggedIn(NavbarTestLoggedInMixin):
-
     @pytest.fixture()
     def page(self, driver):
         page = RegistriesLandingPage(driver)

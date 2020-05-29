@@ -12,7 +12,6 @@ def register_page(driver):
 
 
 class TestRegisterPage(CreateUserMixin):
-
     @pytest.fixture()
     def page(self, register_page):
         return register_page

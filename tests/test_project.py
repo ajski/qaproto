@@ -7,8 +7,7 @@ import markers
 import settings
 from api import osf_api
 from pages.login import LoginPage, login, logout
-from pages.project import (AnalyticsPage, ForksPage, ProjectPage,
-                           RequestAccessPage)
+from pages.project import AnalyticsPage, ForksPage, ProjectPage, RequestAccessPage
 
 
 @pytest.fixture()
@@ -16,15 +15,16 @@ def project_page(driver, default_project_page):
     default_project_page.goto()
     return default_project_page
 
+
 @pytest.fixture()
 def project_page_with_file(driver, project_with_file):
     project_page = ProjectPage(driver, guid=project_with_file.id)
     project_page.goto()
     return project_page
 
-@pytest.mark.usefixtures('must_be_logged_in')
-class TestProjectDetailPage:
 
+@pytest.mark.usefixtures("must_be_logged_in")
+class TestProjectDetailPage:
     @markers.smoke_test
     @markers.core_functionality
     def test_change_title(self, project_page, fake):
@@ -48,7 +48,11 @@ class TestProjectDetailPage:
     @markers.core_functionality
     def test_make_public(self, driver, project_page):
         # Set project to public
-        WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//a[contains(text(), "Make Public")]')))
+        WebDriverWait(driver, 5).until(
+            EC.element_to_be_clickable(
+                (By.XPATH, '//a[contains(text(), "Make Public")]')
+            )
+        )
         project_page.make_public_link.click()
         project_page.confirm_privacy_change_link.click()
         assert project_page.make_private_link.present()
@@ -64,7 +68,10 @@ class TestProjectDetailPage:
         assert project_page_with_file.file_widget.component_and_file_titles[3]
 
     @markers.smoke_test
-    @pytest.mark.skipif(not settings.PREFERRED_NODE, reason='Only run this test if addons are set up on a specific node.')
+    @pytest.mark.skipif(
+        not settings.PREFERRED_NODE,
+        reason="Only run this test if addons are set up on a specific node.",
+    )
     def test_addon_files_load(self, project_page, session, driver):
         """This test is very fragile and makes assumptions about your setup.
         You must have all of the addons in `EXPECTED_PROVIDERS` connected to your `PREFERRED_NODE`.
@@ -81,12 +88,13 @@ class TestProjectDetailPage:
         for provider in providers:
             project_page.file_widget.filter_input.clear()
             project_page.file_widget.filter_input.send_keys_deliberately(provider)
-            driver.find_element_by_xpath("//*[contains(text(), '{}')]".format(provider + '.txt'))
+            driver.find_element_by_xpath(
+                "//*[contains(text(), '{}')]".format(provider + ".txt")
+            )
 
 
-@pytest.mark.usefixtures('must_be_logged_in_as_user_two')
+@pytest.mark.usefixtures("must_be_logged_in_as_user_two")
 class TestProjectDetailAsNonContributor:
-
     @markers.smoke_test
     @markers.core_functionality
     def test_is_private(self, driver, default_project_page):
@@ -95,7 +103,6 @@ class TestProjectDetailAsNonContributor:
 
 
 class TestProjectDetailLoggedOut:
-
     @markers.core_functionality
     def test_is_private(self, driver, default_project_page):
         # Verify that a logged out user cannot see the project
@@ -103,7 +110,6 @@ class TestProjectDetailLoggedOut:
 
 
 class TestForksPage:
-
     @pytest.fixture()
     def forks_page(self, driver, default_project):
         forks_page = ForksPage(driver, guid=default_project.id)
@@ -124,13 +130,12 @@ class TestForksPage:
         assert len(forks_page.listed_forks) == 1
 
         # Clean-up leftover fork
-        href = forks_page.fork_link.get_attribute('href')
+        href = forks_page.fork_link.get_attribute("href")
         fork_guid = href[20:]
         osf_api.delete_project(session, fork_guid, None)
 
 
 class TestAnalyticsPage:
-
     @markers.core_functionality
     def private_project(self, default_project):
         analytics_page = AnalyticsPage(default_project.id)

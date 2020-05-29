@@ -20,11 +20,10 @@ def dashboard_page(driver, must_be_logged_in):
 
 
 class TestDashboardPage:
-
     @markers.dont_run_on_prod
     @markers.core_functionality
     def test_create_project(self, driver, dashboard_page):
-        title = 'New Project'
+        title = "New Project"
         dashboard_page.create_project_button.click()
         create_project_modal = dashboard_page.create_project_modal
         create_project_modal.title_input.clear()
@@ -32,7 +31,7 @@ class TestDashboardPage:
         create_project_modal.create_project_button.click()
         dashboard_page.project_created_modal.go_to_project_href_link.click()
         project_page = ProjectPage(driver, verify=True)
-        assert project_page.title.text == title, 'Project title incorrect.'
+        assert project_page.title.text == title, "Project title incorrect."
 
     def test_create_project_modal_buttons(self, dashboard_page, session):
         institutions = osf_api.get_user_institutions(session)
@@ -49,8 +48,8 @@ class TestDashboardPage:
                 assert create_project_modal.institution_selected(institution)
 
         create_project_modal.more_arrow.click()
-        assert create_project_modal.description_input, 'Description input missing.'
-        assert create_project_modal.template_dropdown, 'Template dropdown missing.'
+        assert create_project_modal.description_input, "Description input missing."
+        assert create_project_modal.template_dropdown, "Template dropdown missing."
         create_project_modal.more_arrow.click()
         assert create_project_modal.description_input.absent()
         assert create_project_modal.template_dropdown.absent()
@@ -63,11 +62,14 @@ class TestDashboardPage:
     def test_institution_logos(self, dashboard_page, session):
         api_institution_names = osf_api.get_all_institutions(session)
         page_institutions = dashboard_page.get_institutions()
-        assert page_institutions, 'Institution logos missing.'
-        page_institution_names = [i.get_property('name') for i in page_institutions]
+        assert page_institutions, "Institution logos missing."
+        page_institution_names = [i.get_property("name") for i in page_institutions]
         assert set(page_institution_names) == set(api_institution_names)
 
-    @pytest.mark.skipif(settings.STAGE2 or settings.TEST, reason='No new and noteworthy node on stage2 or test')
+    @pytest.mark.skipif(
+        settings.STAGE2 or settings.TEST,
+        reason="No new and noteworthy node on stage2 or test",
+    )
     @markers.core_functionality
     def test_new_and_noteworthy(self, dashboard_page):
         assert dashboard_page.first_popular_project_entry.present()
@@ -80,82 +82,114 @@ class TestDashboardPage:
         dashboard_page.view_preprints_button.click()
         assert PreprintLandingPage(driver).verify()
 
-@markers.dont_run_on_prod
-@pytest.mark.usefixtures('must_be_logged_in')
-@pytest.mark.usefixtures('delete_user_projects_at_setup')
-class TestProjectList:
 
+@markers.dont_run_on_prod
+@pytest.mark.usefixtures("must_be_logged_in")
+@pytest.mark.usefixtures("delete_user_projects_at_setup")
+class TestProjectList:
     @pytest.fixture()
     def project_one(self, session):
-        project_one = osf_api.create_project(session, title='&&aaaaaa')
+        project_one = osf_api.create_project(session, title="&&aaaaaa")
         yield project_one
         project_one.delete()
 
     @pytest.fixture()
     def project_two(self, session):
-        project_two = osf_api.create_project(session, title='&&aaaabb')
+        project_two = osf_api.create_project(session, title="&&aaaabb")
         yield project_two
         project_two.delete()
 
     @pytest.fixture()
     def project_three(self, session):
-        project_three = osf_api.create_project(session, title='&&aaaaac')
+        project_three = osf_api.create_project(session, title="&&aaaaac")
         yield project_three
         project_three.delete()
 
-    def test_project_sorting(self, driver, dashboard_page, project_one, project_two, project_three):
+    def test_project_sorting(
+        self, driver, dashboard_page, project_one, project_two, project_three
+    ):
         dashboard_page.reload()
 
         project_list = dashboard_page.project_list
         project_list.search_input.clear()
-        project_list.search_input.send_keys('&&aaaa')
+        project_list.search_input.send_keys("&&aaaa")
 
-        assert 'selected' in project_list.sort_date_dsc_button.get_attribute('class')
-        assert 'not-selected' in project_list.sort_date_asc_button.get_attribute('class')
-        WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div[data-test-dashboard-item]')))
+        assert "selected" in project_list.sort_date_dsc_button.get_attribute("class")
+        assert "not-selected" in project_list.sort_date_asc_button.get_attribute(
+            "class"
+        )
+        WebDriverWait(driver, 5).until(
+            EC.element_to_be_clickable(
+                (By.CSS_SELECTOR, "div[data-test-dashboard-item]")
+            )
+        )
         assert project_three.id in project_list.get_nth_project_link(1)
         assert project_two.id in project_list.get_nth_project_link(2)
         assert project_one.id in project_list.get_nth_project_link(3)
 
         project_list.sort_date_asc_button.click()
-        assert 'selected' in project_list.sort_date_asc_button.get_attribute('class')
-        assert 'not-selected' in project_list.sort_date_dsc_button.get_attribute('class')
-        WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div[data-test-dashboard-item]')))
+        assert "selected" in project_list.sort_date_asc_button.get_attribute("class")
+        assert "not-selected" in project_list.sort_date_dsc_button.get_attribute(
+            "class"
+        )
+        WebDriverWait(driver, 5).until(
+            EC.element_to_be_clickable(
+                (By.CSS_SELECTOR, "div[data-test-dashboard-item]")
+            )
+        )
         assert project_one.id in project_list.get_nth_project_link(1)
         assert project_two.id in project_list.get_nth_project_link(2)
         assert project_three.id in project_list.get_nth_project_link(3)
 
         project_list.sort_title_asc_button.click()
-        assert 'selected' in project_list.sort_title_asc_button.get_attribute('class')
-        assert 'not-selected' in project_list.sort_title_dsc_button.get_attribute('class')
-        WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div[data-test-dashboard-item]')))
+        assert "selected" in project_list.sort_title_asc_button.get_attribute("class")
+        assert "not-selected" in project_list.sort_title_dsc_button.get_attribute(
+            "class"
+        )
+        WebDriverWait(driver, 5).until(
+            EC.element_to_be_clickable(
+                (By.CSS_SELECTOR, "div[data-test-dashboard-item]")
+            )
+        )
         assert project_one.id in project_list.get_nth_project_link(1)
         assert project_three.id in project_list.get_nth_project_link(2)
         assert project_two.id in project_list.get_nth_project_link(3)
 
         project_list.sort_title_dsc_button.click()
-        assert 'selected' in project_list.sort_title_dsc_button.get_attribute('class')
-        assert 'not-selected' in project_list.sort_title_asc_button.get_attribute('class')
-        WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div[data-test-dashboard-item]')))
+        assert "selected" in project_list.sort_title_dsc_button.get_attribute("class")
+        assert "not-selected" in project_list.sort_title_asc_button.get_attribute(
+            "class"
+        )
+        WebDriverWait(driver, 5).until(
+            EC.element_to_be_clickable(
+                (By.CSS_SELECTOR, "div[data-test-dashboard-item]")
+            )
+        )
         assert project_two.id in project_list.get_nth_project_link(1)
         assert project_three.id in project_list.get_nth_project_link(2)
         assert project_one.id in project_list.get_nth_project_link(3)
 
-    #TODO: Update this test to use more complex characters
+    # TODO: Update this test to use more complex characters
     @markers.core_functionality
-    def test_project_quick_search(self, driver, dashboard_page, project_one, project_two, project_three):
+    def test_project_quick_search(
+        self, driver, dashboard_page, project_one, project_two, project_three
+    ):
         dashboard_page.reload()
 
         project_list = dashboard_page.project_list
         project_list.search_input.clear()
-        project_list.search_input.send_keys('&&aaaa')
+        project_list.search_input.send_keys("&&aaaa")
 
-        WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div[data-test-dashboard-item]')))
+        WebDriverWait(driver, 5).until(
+            EC.element_to_be_clickable(
+                (By.CSS_SELECTOR, "div[data-test-dashboard-item]")
+            )
+        )
         assert project_list.get_list_length() == 3
 
-        project_list.search_input.send_keys('a')
+        project_list.search_input.send_keys("a")
         assert project_list.get_list_length() == 2
 
-        project_list.search_input.send_keys('a')
+        project_list.search_input.send_keys("a")
         assert project_list.get_list_length() == 1
         assert project_one.id in project_list.get_nth_project_link(1)

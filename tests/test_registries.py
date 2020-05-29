@@ -1,8 +1,11 @@
 import pytest
 
 import markers
-from pages.registries import (RegistrationDetailPage, RegistriesDiscoverPage,
-                              RegistriesLandingPage)
+from pages.registries import (
+    RegistrationDetailPage,
+    RegistriesDiscoverPage,
+    RegistriesLandingPage,
+)
 
 
 @pytest.fixture
@@ -10,6 +13,7 @@ def landing_page(driver):
     landing_page = RegistriesLandingPage(driver)
     landing_page.goto()
     return landing_page
+
 
 class TestRegistriesDiscoverPage:
     @markers.smoke_test

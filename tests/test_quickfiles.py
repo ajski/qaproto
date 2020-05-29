@@ -13,7 +13,6 @@ def quickfiles_page(driver, session):
 
 @markers.dont_run_on_prod
 class TestQuickfilesLoggedIn:
-
     @pytest.fixture()
     def my_quickfiles(self, quickfiles_page, must_be_logged_in):
         quickfiles_page.goto()
@@ -60,6 +59,7 @@ class TestQuickfilesLoggedIn:
 class AnothersQuickfilesMixin:
     """Mixin used to inject generic tests
     """
+
     @pytest.fixture()
     def anothers_quickfiles(self, quickfiles_page):
         raise NotImplementedError()
@@ -104,7 +104,6 @@ class AnothersQuickfilesMixin:
 
 @markers.dont_run_on_prod
 class TestQuickfilesLoggedOut(AnothersQuickfilesMixin):
-
     @pytest.fixture()
     def anothers_quickfiles(self, quickfiles_page):
         quickfiles_page.goto()
@@ -113,7 +112,6 @@ class TestQuickfilesLoggedOut(AnothersQuickfilesMixin):
 
 @markers.dont_run_on_prod
 class TestQuickfilesAsDifferentUser(AnothersQuickfilesMixin):
-
     @pytest.fixture()
     def anothers_quickfiles(self, quickfiles_page, must_be_logged_in_as_user_two):
         quickfiles_page.goto()

@@ -10,6 +10,7 @@ from pages import user
 def quickfile(session):
     return osf_api.upload_single_quickfile(session)
 
+
 @pytest.fixture
 def user_one_profile_page(driver):
     profile_page = user.UserProfilePage(driver)
@@ -19,6 +20,7 @@ def user_one_profile_page(driver):
 class ProfilePageMixin:
     """Mixin used to inject generic tests
     """
+
     @pytest.fixture()
     def profile_page(self, driver):
         raise NotImplementedError()
@@ -41,7 +43,6 @@ class ProfilePageMixin:
 
 
 class TestProfileLoggedIn(ProfilePageMixin):
-
     @pytest.fixture()
     def profile_page(self, user_one_profile_page, must_be_logged_in):
         user_one_profile_page.goto()
@@ -49,7 +50,6 @@ class TestProfileLoggedIn(ProfilePageMixin):
 
 
 class TestProfileLoggedOut(ProfilePageMixin):
-
     @pytest.fixture()
     def profile_page(self, user_one_profile_page):
         user_one_profile_page.goto()
@@ -57,16 +57,24 @@ class TestProfileLoggedOut(ProfilePageMixin):
 
 
 class TestProfileAsDifferentUser(ProfilePageMixin):
-
     @pytest.fixture()
     def profile_page(self, user_one_profile_page, must_be_logged_in_as_user_two):
         user_one_profile_page.goto()
         return user_one_profile_page
 
-@pytest.mark.usefixtures('must_be_logged_in')
-class TestUserSettings:
 
-    @pytest.fixture(params=[user.ProfileInformationPage, user.AccountSettingsPage, user.ConfigureAddonsPage, user.NotificationsPage, user.DeveloperAppsPage, user.PersonalAccessTokenPage])
+@pytest.mark.usefixtures("must_be_logged_in")
+class TestUserSettings:
+    @pytest.fixture(
+        params=[
+            user.ProfileInformationPage,
+            user.AccountSettingsPage,
+            user.ConfigureAddonsPage,
+            user.NotificationsPage,
+            user.DeveloperAppsPage,
+            user.PersonalAccessTokenPage,
+        ]
+    )
     def settings_page(self, request, driver):
         """Run any test using this fixture with each user settings page individually.
         """
@@ -88,10 +96,14 @@ class TestUserSettings:
     @markers.core_functionality
     def test_change_middle_name(self, profile_settings_page, fake):
         new_name = fake.name()
-        assert profile_settings_page.middle_name_input.get_attribute('value') != new_name
+        assert (
+            profile_settings_page.middle_name_input.get_attribute("value") != new_name
+        )
         profile_settings_page.middle_name_input.clear()
         profile_settings_page.middle_name_input.send_keys(new_name)
         profile_settings_page.save_button.click()
         profile_settings_page.update_success.here_then_gone()
         profile_settings_page.reload()
-        assert profile_settings_page.middle_name_input.get_attribute('value') == new_name
+        assert (
+            profile_settings_page.middle_name_input.get_attribute("value") == new_name
+        )

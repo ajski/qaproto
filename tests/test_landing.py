@@ -13,14 +13,12 @@ def landing_page(driver):
 
 
 class TestLandingPage(CreateUserMixin):
-
     @pytest.fixture()
     def page(self, landing_page):
         return landing_page
 
 
 class TestRegisteredReportsLandingPage:
-
     @markers.core_functionality
     def test_landing_page(self, driver):
         landing_page = RegisteredReportsLandingPage(driver)

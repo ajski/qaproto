@@ -48,6 +48,7 @@ class BasePreprintPage(OSFBasePage):
 class PreprintLandingPage(BasePreprintPage):
     identity = Locator(By.CSS_SELECTOR, '.ember-application .preprint-header', settings.LONG_TIMEOUT)
     add_preprint_button = Locator(By.CLASS_NAME, 'preprint-submit-button', settings.LONG_TIMEOUT)
+    search_input = Locator(By.ID, 'searchBox')
     search_button = Locator(By.CSS_SELECTOR, '.preprint-search .btn-default')
     submit_navbar = Locator(By.CSS_SELECTOR, '.branded-nav > :nth-child(2)')
     submit_button = Locator(By.CSS_SELECTOR, '.btn.btn-success')
@@ -66,6 +67,7 @@ class PreprintSubmitPage(BasePreprintPage):
     upload_project_help_text = Locator(By.CSS_SELECTOR, '.ember-power-select-option--search-message')
     upload_project_selector_project = Locator(By.CSS_SELECTOR, '.ember-power-select-option')
     upload_select_file = Locator(By.CSS_SELECTOR, '.file-browser-item > a:nth-child(2)')
+    upload_preprint_title_input = Locator(By.NAME, 'title')
     upload_file_save_continue = Locator(By.CSS_SELECTOR, 'div[class="p-t-xs pull-right"] > button[class="btn btn-primary"]')
 
     # Author Assertions
@@ -87,7 +89,9 @@ class PreprintSubmitPage(BasePreprintPage):
 
     authors_save_button = Locator(By.CSS_SELECTOR, '#preprint-form-authors .btn-primary', settings.QUICK_TIMEOUT)
 
-    conflict_of_interest = Locator(By.ID, 'coiNo', settings.QUICK_TIMEOUT)
+    conflict_of_interest_yes = Locator(By.ID, 'coiYes', settings.QUICK_TIMEOUT)
+    conflict_of_interest_no = Locator(By.ID, 'coiNo', settings.QUICK_TIMEOUT)
+    no_coi_text_box = Locator(By.CSS_SELECTOR, '[data-test-has-no-coi]', settings.QUICK_TIMEOUT)
     coi_save_button = Locator(By.CSS_SELECTOR, '[data-test-coi-continue]')
 
     supplemental_create_new_project = Locator(By.CSS_SELECTOR, 'div[class="start"] > div[class="row"] > div:nth-child(2)', settings.QUICK_TIMEOUT)
@@ -103,6 +107,7 @@ class PreprintDiscoverPage(BasePreprintPage):
 
     identity = Locator(By.ID, 'share-logo')
     loading_indicator = Locator(By.CSS_SELECTOR, '.ball-scale')
+    search_button = Locator(By.CSS_SELECTOR, 'div.search-header > div > div > div > div.input-group.input-group-lg > span > button:nth-child(2)')
 
     # Group Locators
     search_results = GroupLocator(By.CSS_SELECTOR, '.search-result h4 > a')
@@ -115,3 +120,16 @@ class PreprintDetailPage(GuidBasePage, BasePreprintPage):
     identity = Locator(By.ID, 'preprintTitle', settings.LONG_TIMEOUT)
     title = Locator(By.ID, 'preprintTitle', settings.LONG_TIMEOUT)
     view_page = Locator(By.ID, 'view-page')
+    coi_assert_container = Locator(By.CSS_SELECTOR, '.author-assertions > div:nth-child(1)')
+    coi_dropdown_arrow = Locator(By.CSS_SELECTOR, '.author-assertions > div:nth-child(1) > span > div > .fa.fa-caret-down')
+    pub_data_assert_container = Locator(By.CSS_SELECTOR, '.author-assertions > div:nth-child(2)')
+    pub_data_dropdown_arrow = Locator(By.CSS_SELECTOR, '.author-assertions > div:nth-child(2) > span > div > .fa.fa-caret-down')
+    prereg_assert_container = Locator(By.CSS_SELECTOR, '.author-assertions > div:nth-child(3)')
+    prereg_dropdown_arrow = Locator(By.CSS_SELECTOR, '.author-assertions > div:nth-child(3) > span > div > .fa.fa-caret-down')
+    dropdown_content = Locator(By.CSS_SELECTOR, '#ember-basic-dropdown-wormhole > div')
+    abstract_text = Locator(By.CLASS_NAME, 'abstract')
+    license_text = Locator(By.CSS_SELECTOR, '.p-t-xs.license-text')
+    license_detail_arrow = Locator(By.CSS_SELECTOR, '.p-t-xs.license-text > span > .fa.fa-caret-right')
+    license_detail_text = Locator(By.CSS_SELECTOR, '.p-t-xs.license-text > pre')
+    discipline_text = Locator(By.CLASS_NAME, 'subject-preview')
+    fileName = Locator(By.ID, 'selectedFileName')
